@@ -1,8 +1,8 @@
 # googleAPIs
-#
-# A tool kit to interact with Google's APIs and grab logs and reports
-# To be updated to include Google Drive API requests where possible
-# Note - In order to grab Drive access you need a Google Apps Unlimited license
+
+A tool kit to interact with Google's APIs and grab logs and reports
+To be updated to include Google Drive API requests where possible
+Note - In order to grab Drive access you need a Google Apps Unlimited license
 
 === BEFORE RUNNING ===
 
