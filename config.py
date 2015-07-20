@@ -41,7 +41,7 @@ elif(clientSecretsJson.has_key('installed')):
 	redirectUri = clientSecretsJson['installed']['redirect_uris'][0]
 else:
 	print "Can't find the 'redirect_uris' key in the client_secrets.json file, please verify the client_secrets.json file and try again"
-	break
+	exit	
 # make the flow object for the oauth2 session
 flow = client.flow_from_clientsecrets(client_secrets_filename, scope='https://www.googleapis.com/auth/admin.reports.audit.readonly', redirect_uri=redirectUri)
 
