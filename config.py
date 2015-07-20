@@ -35,8 +35,13 @@ clientSecretsJson = json.loads(clientSecretsData.read())
 clientSecretsData.close()
 
 # capture the right reidrect uri from the client secrets so the links worky
-redirectUri = clientSecretsJson['web']['redirect_uris'][0]
-
+if(clientSecretsJson.has_key('web')):
+	redirectUri = clientSecretsJson['web']['redirect_uris'][0]
+elif(clientSecretsJson.has_key('installed')):
+	redirectUri = clientSecretsJson['installed']['redirect_uris'][0]
+else:
+	print "Can't find the 'redirect_uris' key in the client_secrets.json file, please verify the client_secrets.json file and try again"
+	break
 # make the flow object for the oauth2 session
 flow = client.flow_from_clientsecrets(client_secrets_filename, scope='https://www.googleapis.com/auth/admin.reports.audit.readonly', redirect_uri=redirectUri)
 
