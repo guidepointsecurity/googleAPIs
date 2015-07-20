@@ -35,7 +35,7 @@ clientSecretsJson = json.loads(clientSecretsData.read())
 clientSecretsData.close()
 
 # capture the right reidrect uri from the client secrets so the links worky
-redirectUri = clientSecretsJson['installed']['redirect_uris'][0]
+redirectUri = clientSecretsJson['web']['redirect_uris'][0]
 
 # make the flow object for the oauth2 session
 flow = client.flow_from_clientsecrets(client_secrets_filename, scope='https://www.googleapis.com/auth/admin.reports.audit.readonly', redirect_uri=redirectUri)
@@ -123,6 +123,10 @@ while(log_json.has_key('items')):
 	get_datetime = isodate.parse_datetime(last_time)
 	new_end = get_datetime - datetime.timedelta(seconds=1)
 	loop_request = urllib2.Request("https://www.googleapis.com/admin/reports/v1/activity/users/all/applications/login?endTime=" + new_end.isoformat("T").replace('+00:00','Z'))
+	if(credentials.access_token_expired):
+		http = httplib2.Http()
+		credentials.refresh(http)
+		bearertoken="Bearer " + credentials.access_token
 	loop_request.add_header("Authorization", bearertoken)
 	loop_lograw = urllib2.urlopen(loop_request)
 	log_json = json.loads(loop_lograw.read())
